@@ -1,30 +1,22 @@
-import { useState } from "react";
-import "./App.scss";
-import data from "./assets/data";
-import Header from "./components/Header";
-import Menu from "./components/Menu";
-import { Route, Routes } from "react-router-dom";
-import Cart from "./components/Cart";
+import React from 'react';
+import MenuList from './components/MenuList';
+import Cart from './components/Cart';
+import './App.css';
 
 function App() {
-  const [menu, setMenu] = useState(data.menu);
-  const [cart, setCart] = useState([]);
-  console.log(cart);
+  // App.jsx에서 직접 관리하던 menu와 cart 상태를 모두 제거합니다.
+  // 상태 관리는 이제 각 Context Provider가 담당합니다.
+  // 따라서 자식 컴포넌트에게 props를 내려줄 필요가 없습니다.
 
   return (
-    <div>
-      <Header />
-      <main>
-        <Routes>
-          <Route
-            path="/"
-            element={<Menu menu={menu} cart={cart} setCart={setCart} />}
-          />
-          <Route
-            path="/cart"
-            element={<Cart menu={menu} cart={cart} setCart={setCart} />}
-          />
-        </Routes>
+    <div className="app-container">
+      <header>
+        <h1>OZ Cafe</h1>
+      </header>
+      <main className="main-content">
+        {/* props 전달 없이 컴포넌트만 렌더링합니다. */}
+        <MenuList />
+        <Cart />
       </main>
     </div>
   );
