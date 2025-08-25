@@ -1,13 +1,12 @@
-function Item ({item, clickHandler}) {
-    return (
-        <li className='item' onClick={clickHandler}>
-            <img width={50} src={item.img} />
-            <section>
-                <div>{item.name}</div>
-                <div>{item.price}원</div>
-            </section>
-        </li>
-    )
-}
+import React from 'react';
 
-export default Item
+export const Item = ({ item, onAdd }) => {
+  return (
+    <div className="item">
+      <img src={item.img} alt={item.name} />
+      <h3>{item.name}</h3>
+      <p>{item.price.toLocaleString()}원</p>
+      <button onClick={onAdd}>담기</button>
+    </div>
+  );
+};

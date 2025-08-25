@@ -1,49 +1,34 @@
-import { useState } from "react";
-import Item from "./Item";
-import OrderModal from "./OrderModal";
+import React, { useContext } from 'react';
+import { MenuContext } from '../context/menuContext.jsx';
+import { CartContext } from '../context/cartContext.jsx';
+import { Item } from './Item.jsx';
 
-function Menu({ menu, cart, setCart }) {
-  const [modalOn, setModalOn] = useState(false);
-  const [modalMenu, setModalMenu] = useState(null);
-  if (!menu)
-    return (
-      <div style={{ textAlign: "center", margin: "80px" }}>
-        메뉴 정보가 없어요!
-      </div>
-    );
+export const Menu = () => {
+  const { menu } = useContext(MenuContext);
+  const { addToCart } = useContext(CartContext);
 
-  const categorys = Object.keys(menu);
+  if (!menu) {
+    return <div>메뉴를 불러오는 중입니다...</div>;
+  }
+
   return (
-    <>
-      {categorys.map((category) => {
-        return (
-          <section key={category}>
-            <h2>{category}</h2>
-            <ul className="menu">
-              {menu[category].map((item) => (
-                <Item
-                  key={item.name}
-                  item={item}
-                  clickHandler={() => {
-                    setModalMenu(item);
-                    setModalOn(true);
-                  }}
-                />
-              ))}
-            </ul>
-          </section>
-        );
-      })}
-      {modalOn ? (
-        <OrderModal
-          modalMenu={modalMenu}
-          setModalOn={setModalOn}
-          cart={cart}
-          setCart={setCart}
-        />
-      ) : null}
-    </>
+    <div className="menu-container">
+      <div className="menu-category">
+        <h2>Coffee</h2>
+        <div className="menu-list">
+          {menu.coffee.map((item) => (
+            <Item key={item.id} item={item} onAdd={() => addToCart(item)} />
+          ))}
+        </div>
+      </div>
+      <div className="menu-category">
+        <h2>Non-Coffee</h2>
+        <div className="menu-list">
+          {menu.nonCoffee.map((item) => (
+            <Item key={item.id} item={item} onAdd={() => addToCart(item)} />
+          ))}
+        </div>
+      </div>
+    </div>
   );
-}
-
-export default Menu;
+};

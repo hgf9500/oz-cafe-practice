@@ -1,15 +1,20 @@
-import { Link } from "react-router-dom"
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-function Header () {
-    return (
-        <header>
-            <h1>☕ 오즈 카페</h1>
-            <nav>
-                <Link to='/'>메인</Link>
-                <Link to='/cart'>장바구니</Link>
-            </nav>
-        </header>
-    )
-}
-
-export default Header
+export const Header = () => {
+  return (
+    <header className="header">
+      <h1>OZ Cafe</h1>
+      <nav className="nav">
+        <ul>
+          <li>
+            <Link to="/">메뉴</Link>
+          </li>
+          <li>
+            <Link to="/cart">장바구니</Link>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  );
+};
